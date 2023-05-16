@@ -1,3 +1,23 @@
+
+/*-------------------CONSEGNA-------------------------
+Milestone 1 - Creiamo il nostro array di oggetti che rappresentano ciascun post. Ogni post dovrà avere le informazioni necessarie per stampare la relativa card:
+id del post, numero progressivo da 1 a n
+nome autore,
+foto autore,
+data in formato americano (mm-gg-yyyy),
+testo del post,
+immagine (non tutti i post devono avere una immagine),
+numero di likes.
+Per le immagini va bene utilizzare qualsiasi servizio di placeholder ad es. Unsplash (https://unsplash.it/300/300?image=<id>)
+[e qui è già fatto perchè ve lo passo nello zip :innocente:]
+Milestone 2 - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
+Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+*/
+
+
+// ----------------------ARRAY OBJ---------------------------
+
 const posts = [
     {
         "id": 1,
@@ -57,7 +77,7 @@ const posts = [
 ];
 
 
-/*-------------------------------------CREAZIONE POSTS-------------------------------------*/
+// -------------------------------------CREAZIONE POSTS-------------------------------------
 
 for (let index = 0; index < posts.length; index++) {
     const myPostList = document.querySelector('.posts-list');
@@ -82,9 +102,9 @@ for (let index = 0; index < posts.length; index++) {
                     <div class="likes js-likes">
                         <div class="likes__cta">
                             <div class="like-button  js-like-button" data-postid="${posts[index].id}">
-                                <i class="like-button__icon fas fa-thumbs-up"></i>
-                                <i class="like-button__icon fas fa-thumbs-up hidden"></i>                                
-                                <span class="like-button__label">Like!</span>
+                                <i class="fa-regular fas fa-thumbs-up"></i>
+                                <i class=" fa-solid  fas fa-thumbs-up hidden"></i>                                
+                                <span class="like-button__label">Mi piace!</span>
                             </div>
                         </div>
                         <div class="likes__counter">
@@ -95,6 +115,45 @@ for (let index = 0; index < posts.length; index++) {
             </div>`;
     myPostList.innerHTML += newPost;
 
+};
+
+const myLikeButton = document.querySelectorAll('.like-button');
+
+const myLikeCounter = document.querySelectorAll('.js-likes-counter');
+
+// -------------COSTANTE PER SALVARE I POST A CUI HO MESSO LIKE--------------------
+
+let myLikedPosts = [];
+
+// ------------------------FUNZIONI LIKE POST----------------------------
+
+for (let index = 0; index < posts.length; index++) {
+    
+    myLikeButton[index].addEventListener('click',
+    
+    function () {
+        console.log('click like su post n° ' + posts[index].id);
+        
+        const notLiked = document.querySelectorAll('i.fa-solid');
+        const liked = document.querySelectorAll('i.fa-regular');
+        const likedText = document.querySelectorAll('.like-button__label');
+        if (notLiked[index].className.includes('hidden') == false) {            
+            notLiked[index].classList.add('hidden');
+            liked[index].classList.remove('hidden');     
+            myLikeCounter[index].innerHTML = posts[index].likes + 1;
+            myLikedPosts.push(posts[index].id);
+            console.log('Id post a cui ho messo like ' + myLikedPosts);
+        }
+        else{
+            notLiked[index].classList.remove('hidden');
+            liked[index].classList.add('hidden');
+            likedText[index].innerHTML = 'Mi piace!';
+            myLikeCounter[index].innerHTML = posts[index].likes;
+        }
+        console.log(myLikedPosts);
+
+    }
+    );
 };
 
 

@@ -119,7 +119,23 @@ h1 {
     font-weight: bold;
 }
 
-.like-button--liked {
+.like-button--liked{
     color: #0CD977;
     cursor: default;
 }
+
+.fa-solid.fa-thumbs-up{
+    color: blue;
+
+}
+
+
+
+.fa-solid.fa-thumbs-up.hidden{
+    display: none;
+}
+
+.fa-regular.fa-thumbs-up.hidden {
+    display: none;
+}
+
